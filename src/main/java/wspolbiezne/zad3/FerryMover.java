@@ -2,15 +2,20 @@ package wspolbiezne.zad3;
 
 public class FerryMover extends Thread {
 
-    private FerryMonitor2 ferry;
+    private Ferry ferry;
 
-    public FerryMover(FerryMonitor2 ferry) {
+    public FerryMover(Ferry ferry) {
         this.ferry = ferry;
     }
 
     @Override
     public void run() {
-        while (true)
-            ferry.moveFerry();
+        while (true) {
+            try {
+                ferry.transport();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

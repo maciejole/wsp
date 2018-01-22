@@ -2,18 +2,16 @@ package wspolbiezne.zad3;
 
 public class Main {
 
-    public static void main(String[] args) {
-        FerryMonitor2 ferry = new FerryMonitor2(5, 500);
-        CarEmbarker[] carEmbarkers = new CarEmbarker[10];
-        CarDisembarker[] carDisembarkers = new CarDisembarker[10];
-        for (int i  = 0; i < carEmbarkers.length; i++) {
-            carEmbarkers[i] = new CarEmbarker(ferry);
-            carDisembarkers[i] = new CarDisembarker(ferry);
-            carEmbarkers[i].start();
-            carDisembarkers[i].start();
-        }
+    public static void main(String[] args) throws InterruptedException {
+//        FerryMonitor2 ferry = new FerryMonitor2(5, 5000);
+        Ferry ferry = new FerryMonitorImpl(5, FerryMonitorImpl.Status.WEST, 50000);
+        CarThread[] cars = new CarThread[21];
         FerryMover ferryMover = new FerryMover(ferry);
         ferryMover.start();
+        for (int i  = 0; i < cars.length; i++) {
+            cars[i] = new CarThread(ferry, i);
+            cars[i].run();
+        }
     }
 
 }

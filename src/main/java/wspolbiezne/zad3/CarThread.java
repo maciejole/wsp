@@ -2,17 +2,29 @@ package wspolbiezne.zad3;
 
 public class CarThread extends Thread {
 
-    private Long carId;
-    private FerryMonitor2 ferryMonitor;
+    private int carId;
+    private Ferry ferryMonitor;
 
-    public CarThread(FerryMonitor2 ferryMonitor, Long carId) {
+    public CarThread(Ferry ferryMonitor, int carId) {
         this.ferryMonitor = ferryMonitor;
         this.carId = carId;
     }
 
     @Override
     public void run() {
-        ferryMonitor.embarkCar();
-        ferryMonitor.disembarkCar();
+        try {
+            Thread.sleep((long)(Math.random() * 100));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            ferryMonitor.embarkCar(this);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getCarId() {
+        return carId;
     }
 }
