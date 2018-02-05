@@ -1,4 +1,5 @@
 with Ada.Text_IO;
+with Ada.Numerics.Float_Random;
 use Ada.Text_IO;
 
 procedure Main is
@@ -59,7 +60,20 @@ procedure Main is
          end select;
       end loop;
    end Ferry;
-
+   
+   task Car;
+   task body Car is
+      use Ada.Numerics.Float_Random;
+      Seed: Generator;
+      id: Integer := 1;
+   begin
+      loop
+         delay Duration(Random(Seed) * Float(id) / 4.0);
+         Ferry.Embark_A_Car(id);
+         id := id + 1;
+      end loop;
+   end Car;     
+   
    task Transporter;
    task body Transporter is
    begin
@@ -69,10 +83,6 @@ procedure Main is
    end Transporter;
 
 begin
-   for Index in 1..23 loop
-      Ferry.Embark_A_Car(Index);
-      delay 1.0;
-   end loop;
-   Put_Line("Koniec aut");
+   null;
 
 end Main;
