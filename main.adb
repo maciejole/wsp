@@ -54,8 +54,14 @@ procedure Main is
                null;
             elsif  counter > 0 then
                Put_Line("Plyniemy bez pelnego oblozenia " & Integer'Image(counter) & "  samochody na pokladzie");
+               for I in Integer range 1..endIndex loop
+                  Put_Line("Auto o id " & Integer'Image(cars(I)) & " zjezdza z promu");
+               end loop;
                startIndex := 1;
+               endIndex := 0;
                counter := 0;
+               Put_Line("Prom plynie na drugi brzeg po kolejne auta");
+               delay 0.2;
             end if;
          end select;
       end loop;
@@ -71,6 +77,7 @@ procedure Main is
          delay Duration(Random(Seed) * Float(id) / 4.0);
          Ferry.Embark_A_Car(id);
          id := id + 1;
+         Reset(seed);
       end loop;
    end Car;     
    
